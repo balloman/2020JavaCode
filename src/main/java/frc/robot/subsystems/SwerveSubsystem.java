@@ -83,17 +83,17 @@ public class SwerveSubsystem extends SubsystemBase
             case BR:{
                 speed = math.speeds.get(BR);
                 angle = math.angles.get(BR);
-                encoder = rotationMotors.get(wheel).getSensorCollection().getIntegratedSensorPosition();
+                encoder = getRotationEncoder(wheel);
             }
             case FL:{
                 speed = math.speeds.get(FL);
                 angle = math.angles.get(FL);
-                encoder = rotationMotors.get(wheel).getSensorCollection().getIntegratedSensorPosition();
+                encoder = getRotationEncoder(wheel);
             }
             case FR:{
                 speed = math.speeds.get(FL);
                 angle = math.angles.get(FL);
-                encoder = rotationMotors.get(wheel).getSensorCollection().getIntegratedSensorPosition();
+                encoder = getRotationEncoder(wheel);
             }
         }
         //Essentially same math that is in the LabVIEW version of the code
