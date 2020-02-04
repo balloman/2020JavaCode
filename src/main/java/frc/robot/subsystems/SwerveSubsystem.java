@@ -70,32 +70,9 @@ public class SwerveSubsystem extends SubsystemBase
     Returns encoder position to go to and speed to drive at
      */
     public double[] wheelCalc(Wheel wheel, SwerveMath math){
-        var encoder = 0.0;
-        var angle = 0.0;
-        var speed = 0.0;
-        //Modify our angle and encoder values based on wheel
-        switch (wheel){
-            case BL:{
-                speed = math.speeds.get(BL);
-                angle = math.angles.get(BL);
-                encoder = getRotationEncoder(wheel);
-                }
-            case BR:{
-                speed = math.speeds.get(BR);
-                angle = math.angles.get(BR);
-                encoder = getRotationEncoder(wheel);
-            }
-            case FL:{
-                speed = math.speeds.get(FL);
-                angle = math.angles.get(FL);
-                encoder = getRotationEncoder(wheel);
-            }
-            case FR:{
-                speed = math.speeds.get(FL);
-                angle = math.angles.get(FL);
-                encoder = getRotationEncoder(wheel);
-            }
-        }
+        var encoder = getRotationEncoder(wheel);
+        var angle = math.angles.get(wheel);
+        var speed = math.speeds.get(wheel);
         //Essentially same math that is in the LabVIEW version of the code
         var currentAngle = SwerveMath.wrapAngle(
                 (encoder % Constants.RotationMultiplier) * Constants.InverseRotationMultiplier,
