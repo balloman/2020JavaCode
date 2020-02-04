@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.commands.led.SetColorCommand;
 import frc.robot.commands.swerve.SwerveDrive;
 import frc.robot.commands.swerve.SwerveZero;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 import java.util.HashMap;
@@ -28,6 +30,10 @@ public class RobotContainer
     // The robot's subsystems and commands are defined here...
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     private final  XboxController driverController = new XboxController(0);
+    private final LEDSubsystem ledSubsystem = LEDSubsystem.getInstance();
+
+
+    public SetColorCommand colorCommand = new SetColorCommand(ledSubsystem, SetColorCommand.Color.BLUE);
 
     private final SwerveDrive autonomousCommand = new SwerveDrive(swerveSubsystem, new HashMap<>());
 
@@ -42,6 +48,7 @@ public class RobotContainer
         //Drive command I think, I saw it in a tutorial so hopefully it works
         swerveSubsystem.setDefaultCommand(new RunCommand(() -> swerveSubsystem.Drive(driverController.getY(),
                 driverController.getX(), driverController.getTriggerAxis(GenericHID.Hand.kLeft))));
+        ledSubsystem.setDefaultCommand(colorCommand);
     }
 
     /**
