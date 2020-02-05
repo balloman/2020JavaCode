@@ -11,11 +11,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.led.SetColorCommand;
 import frc.robot.commands.swerve.SwerveDrive;
 import frc.robot.commands.swerve.SwerveZero;
+import frc.robot.commands.vision.DriveWithoutZCommand;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 import java.util.HashMap;
 
@@ -31,6 +34,7 @@ public class RobotContainer
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     private final  XboxController driverController = new XboxController(0);
     private final LEDSubsystem ledSubsystem = LEDSubsystem.getInstance();
+    private final VisionSubsystem visionSubsystem = VisionSubsystem.getInstance();
 
 
     public SetColorCommand colorCommand = new SetColorCommand(ledSubsystem, SetColorCommand.Color.BLUE);
@@ -47,7 +51,7 @@ public class RobotContainer
         configureButtonBindings();
         //Drive command I think, I saw it in a tutorial so hopefully it works
         swerveSubsystem.setDefaultCommand(new RunCommand(() -> swerveSubsystem.Drive(driverController.getY(),
-                driverController.getX(), driverController.getTriggerAxis(GenericHID.Hand.kLeft))));
+                driverController.getX(), driverController.getTriggerAxis(GenericHID.Hand.kLeft), false)));
         ledSubsystem.setDefaultCommand(colorCommand);
     }
 
@@ -59,7 +63,9 @@ public class RobotContainer
      */
     private void configureButtonBindings()
     {
-        
+        JoystickButton r2d2 = new JoystickButton(driverController, XboxController.Button.kStickLeft.value);
+        //Implements the following camera code
+        r2d2.whenPressed(new DriveWithoutZCommand(visionSubsystem, swerveSubsystem, driverController));
     }
 
 

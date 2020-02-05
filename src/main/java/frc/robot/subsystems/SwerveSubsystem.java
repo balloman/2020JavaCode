@@ -101,8 +101,8 @@ public class SwerveSubsystem extends SubsystemBase
         return rotationMotors.get(refnum).getSensorCollection().getIntegratedSensorPosition();
     }
 
-    public void Drive(double x, double y, double z){
-        SwerveMath swerveMath = new SwerveMath(x, y, z, false);
+    public void Drive(double x, double y, double z, boolean autonomous){
+        SwerveMath swerveMath = new SwerveMath(x, y, z, autonomous);
         //Math
         swerveMath.configABCD();
         //Math
