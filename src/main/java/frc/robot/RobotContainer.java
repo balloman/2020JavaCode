@@ -19,6 +19,7 @@ import frc.robot.commands.vision.DriveWithoutZCommand;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.subsystems.mechanisms.JHookSubsystem;
 
 import java.util.HashMap;
 
@@ -32,9 +33,11 @@ public class RobotContainer
 {
     // The robot's subsystems and commands are defined here...
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-    private final  XboxController driverController = new XboxController(0);
+    private final XboxController driverController = new XboxController(0);
+    private final XboxController mechanismController = new XboxController(1);
     private final LEDSubsystem ledSubsystem = LEDSubsystem.getInstance();
     private final VisionSubsystem visionSubsystem = VisionSubsystem.getInstance();
+    private final JHookSubsystem jHookSubsystem = JHookSubsystem.getInstance();
 
 
     public SetColorCommand colorCommand = new SetColorCommand(ledSubsystem, SetColorCommand.Color.BLUE);
@@ -53,6 +56,8 @@ public class RobotContainer
         swerveSubsystem.setDefaultCommand(new RunCommand(() -> swerveSubsystem.Drive(driverController.getY(),
                 driverController.getX(), driverController.getTriggerAxis(GenericHID.Hand.kLeft), false)));
         ledSubsystem.setDefaultCommand(colorCommand);
+        jHookSubsystem.setDefaultCommand(new RunCommand(() ->
+                jHookSubsystem.setMotorSpeed(mechanismController.getX(GenericHID.Hand.kRight))));
     }
 
     /**
