@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+import com.revrobotics.ColorMatch;
+import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.commands.led.SetColorCommand;
+
 import java.util.Map;
 
 import static java.util.Map.entry;
@@ -42,7 +46,8 @@ public final class Constants
         JHook,
         ShooterAim,
         ShooterEncoderA,
-        ShooterEncoderB
+        ShooterEncoderB,
+        ColorMotor
     }
 
     //This is a map of all of the objects to their respective ports.
@@ -50,11 +55,34 @@ public final class Constants
     public static final Map<PortMap, Integer> PWMPorts = Map.ofEntries(
             entry(PortMap.ShooterWheel, 1),
             entry(PortMap.JHook, 0),
-            entry(PortMap.ShooterAim, 2)
+            entry(PortMap.ShooterAim, 2),
+            entry(PortMap.ColorMotor, 3)
     );
 
     public static final Map<PortMap, Integer> DIOPorts = Map.ofEntries(
             entry(PortMap.ShooterEncoderA, 0),
             entry(PortMap.ShooterEncoderB, 1)
     );
+
+    private static final Color BlueTarget = ColorMatch.makeColor(.143, .427, .429);
+    private static final Color GreenTarget = ColorMatch.makeColor(.197, .561, .24);
+    private static final Color YellowTarget = ColorMatch.makeColor(.361, .524, .113);
+    private static final Color RedTarget = ColorMatch.makeColor(.561, .323, .114);
+
+    public enum Colors{
+        Blue,
+        Red,
+        Green,
+        Yellow,
+        Unknown
+    }
+
+    public static final Map<Colors, Color> ColorMatches = Map.ofEntries(
+            entry(Colors.Blue, BlueTarget),
+            entry(Colors.Green, GreenTarget),
+            entry(Colors.Yellow, YellowTarget),
+            entry(Colors.Red, RedTarget)
+    );
+
+
 }
