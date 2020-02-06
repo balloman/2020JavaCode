@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+import java.util.Map;
+
+import static java.util.Map.entry;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -28,4 +32,29 @@ public final class Constants
 
     public static final double RotationMultiplier = 36864;
     public static final double InverseRotationMultiplier = 0.009765625;
+
+    //IDK what this would be but this would be updated based on some user testing
+    public static final double AimConstant = 0.123456;
+
+    //This is a list of all the objects in the code that will have ports
+    public enum PortMap {
+        ShooterWheel,
+        JHook,
+        ShooterAim,
+        ShooterEncoderA,
+        ShooterEncoderB
+    }
+
+    //This is a map of all of the objects to their respective ports.
+    //This ensures safe port creation that is easily modifiable in one place
+    public static final Map<PortMap, Integer> PWMPorts = Map.ofEntries(
+            entry(PortMap.ShooterWheel, 1),
+            entry(PortMap.JHook, 0),
+            entry(PortMap.ShooterAim, 2)
+    );
+
+    public static final Map<PortMap, Integer> DIOPorts = Map.ofEntries(
+            entry(PortMap.ShooterEncoderA, 0),
+            entry(PortMap.ShooterEncoderB, 1)
+    );
 }
